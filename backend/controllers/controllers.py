@@ -1,5 +1,6 @@
 import re
 from pprint import pprint
+from config.db import db
 from controllers.soup import Soup
 from config.constants import URI
 from tqdm import tqdm
@@ -33,6 +34,13 @@ def extract_data_from_page(url):
 
 def extract_all_data():
 	return [extract_data_from_page(page) for page in tqdm(get_links())]
+
+def repopulate_db():
+	db.cars.delete_many({})
+	print("Database deleted...")
+	for car in tqdm(extract_all_data()):
+		db.cars.insert_one(car)
+	print("...then database populated!")
 
 if __name__ == "__main__":
 	pprint(extract_data_from_page("https://www.automobile-propre.com/voitures/bmw-740e-iperformance/"))
