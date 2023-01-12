@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, status
 from typing import Optional
 from models.car import Car
 from config.db import db
@@ -24,12 +24,12 @@ async def get_one(id):
 		raise raise_not_found_exception()
 
 
-@car.post("/")
+@car.post("/", status_code=status.HTTP_201_CREATED)
 async def create(car: Car):
 	db.cars.insert_one(dict(car))
 	return {"message": "Creation OK!"}
 
-@car.put("/{id}")
+@car.put("/{id}", status_code=status.HTTP_204)
 async def update(id, car:Car):
 	try:
 		db.cars.find_one_and_update({"_id":ObjectId(id)},{
