@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../src/components/Footer";
 import Navbar from "../src/components/Navbar";
 import { slide as Menu } from "react-burger-menu";
 
@@ -22,8 +21,7 @@ const Layout = ({ children }) => {
         </a>
       </Menu>
       <Navbar />
-      {children}
-      <Footer />
+      <div className="">{children}</div>
     </div>
   );
 };

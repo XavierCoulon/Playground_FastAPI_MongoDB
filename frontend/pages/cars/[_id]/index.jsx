@@ -5,21 +5,35 @@ import Link from "next/link";
 function Car({ data }) {
   return (
     <>
-      <img className="w-28" src={data.image_brand} alt="picture of a brand" />
-      {data.image_model.startsWith("http") ? (
-        <img src={data.image_model} alt="picture of a car" />
-      ) : (
-        <p>No image</p>
-      )}
+      <div className="flex justify-center p-4">
+        <div className="px-4 ">
+          {data.image_model.startsWith("http") ? (
+            <img
+              className="w-96 rounded-lg"
+              src={data.image_model}
+              alt="picture of a car"
+            />
+          ) : (
+            <p>No image</p>
+          )}
+        </div>
+        <ul>
+          <li>
+            <img
+              className="w-28 h-auto"
+              src={data.image_brand}
+              alt="picture of a brand"
+            />
+          </li>
+          <li>{data.brand}</li>
+          <li>{data.motorisation}</li>
+          <li>{data.autonomy}</li>
+          <li>{data.price}€</li>
+          <li>{data.rating}</li>
+        </ul>
+      </div>
+      <Link href="/cars" className="bg-blue-400 text-white p-2 ml-1 rounded-md">Retour</Link>
 
-      <ul>
-        <li>{data.brand}</li>
-        <li>{data.motorisation}</li>
-        <li>{data.autonomy}</li>
-        <li>{data.price}€</li>
-        <li>{data.rating}</li>
-      </ul>
-      <Link href="/cars">Retour...</Link>
     </>
   );
 }
