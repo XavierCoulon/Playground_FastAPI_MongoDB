@@ -8,7 +8,7 @@ from bson import ObjectId
 car = APIRouter()
 
 @car.get("/")
-async def get_all(n: Optional[int] = Query(10, gt=0), rating: Optional[bool] = Query(None)):
+async def get_all(n: Optional[int] = Query(1000, gt=0), rating: Optional[bool] = Query(None)):
 	query ={}
 	if rating:
 		query["rating"] = { "$ne": "N/A"}
@@ -29,7 +29,7 @@ async def create(car: Car):
 	db.cars.insert_one(dict(car))
 	return {"message": "Creation OK!"}
 
-@car.put("/{id}", status_code=status.HTTP_204)
+@car.put("/{id}", status_code=status.HTTP_200_OK)
 async def update(id, car:Car):
 	try:
 		db.cars.find_one_and_update({"_id":ObjectId(id)},{
